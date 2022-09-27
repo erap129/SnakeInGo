@@ -11,6 +11,12 @@ type Game struct {
 	snakeBody SnakeBody
 }
 
+func drawParts(s tcell.Screen, parts []SnakePart, style tcell.Style) {
+	for _, part := range parts {
+		s.SetContent(part.X, part.Y, ' ', nil, style)
+	}
+}
+
 func (g *Game) Run() {
 
 	defStyle := tcell.StyleDefault.Background(tcell.ColorBlack).Foreground(tcell.ColorWhite)
@@ -21,7 +27,7 @@ func (g *Game) Run() {
 	for {
 		g.Screen.Clear()
 		g.snakeBody.Update(width, height)
-		g.Screen.SetContent(g.snakeBody.X, g.snakeBody.Y, ' ', nil, snakeStyle)
+		drawParts(g.Screen, g.snakeBody.Parts, snakeStyle)
 		time.Sleep(40 * time.Millisecond)
 		g.Screen.Show()
 	}

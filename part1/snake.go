@@ -12,7 +12,13 @@ func (sb *SnakeBody) ChangeDir(vertical int, horizontal int) {
 	sb.Xspeed = horizontal
 }
 
-func (sb *SnakeBody) Update() {
-	sb.X += sb.Xspeed
-	sb.Y += sb.Yspeed
+func (sb *SnakeBody) Update(width int, height int) {
+	sb.X = (sb.X + sb.Xspeed) % width
+	if sb.X < 0 {
+		sb.X += width
+	}
+	sb.Y = (sb.Y + sb.Yspeed) % height
+	if sb.Y < 0 {
+		sb.Y += height
+	}
 }
